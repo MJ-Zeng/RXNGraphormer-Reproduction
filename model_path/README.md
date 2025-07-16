@@ -1,15 +1,22 @@
-Please download `buchwald_hartwig.zip`, `C_H_func.zip`, `external_validation.zip`, `pretrained_classification_model.zip`, `suzuki_miyaura.zip`, `thiol_addition.zip`, `USPTO_50k_model.zip`, `USPTO_480k_model.zip`, `USPTO_full_model.zip`, and `USPTO_STEREO_model.zip` of trained models from the [figshare](https://doi.org/10.6084/m9.figshare.28356077) (before the manuscript is formally published, please vist the private [link](https://figshare.com/s/decc64a868ab64a93099)). Unzip the file and put model weight files into the this folder following the structure below:
+Put the model in specific folder like this:
 
 ```
-model_path/
-├── buchwald_hartwig/
-│── C_H_func/
-│── external_validation/
-│── pretrained_classification_model/
-│── suzuki_miyaura/
-│── thiol_addition/
-|── USPTO_480k/
-│── USPTO_50k/
-│── USPTO_STEREO/
-└── USPTO_full/
+RXNGraphormer
+├── rxngraphormer
+├── dataset
+└── model_path
+    ├── buchwald_hartwig
+    ├── C_H_func
+    ├── external_validation
+    ├── pretrained_classification_model
+    ├── suzuki_miyaura
+    ├── Test
+    ├── thiol_addition
+    ├── USPTO_50k
+    ├── USPTO_480k
+    ├── USPTO_full
+    └── USPTO_STEREO
 ```
+
+> **Note**: The folders `seq-v2-USPTO_STEREO-20250423_044122_ft` and `seq-v2-USPTO_STEREO-20250509_070206_ft` are training checkpoints saved during the training process on the USPTO_STEREO dataset. They allow resuming training from a specific point if interrupted.  
+> For inference or deployment, only the final trained model located in the `USPTO_STEREO` directory is needed. These checkpoint folders can be safely removed to save storage space without affecting model usage.
