@@ -823,6 +823,9 @@ class SequenceTrainer():
         self.log_dir = f"{self.save_dir}/log"
         self.writer = SummaryWriter(log_dir=self.log_dir)
         self.config.to_json(filename=f"{self.save_dir}/parameters.json")
+
+
+
         self.model_save_dir = f"{self.save_dir}/model"
         os.makedirs(self.model_save_dir, exist_ok=True)
         
@@ -926,6 +929,8 @@ class SequenceTrainer():
 
         self.init_optimizer()
         self.init_scheduler()
+        # 新增try_resume
+        self.start_epoch, self.best_valid = self.try_resume()
 
         if self.multi_gpu and dist.get_rank() == 0:
             logging.info(f'[INFO] Load dataset {self.config.data.data_path}...')
@@ -1141,7 +1146,8 @@ class SequenceTrainer():
     def run(self):
         logging.info("[INFO] Start training...")
         sys.stdout.flush()
-        for epoch in range(self.config.training.epoch):
+        # for epoch in range(self.config.training.epoch):
+        for epoch in range(self.start_epoch, self.config.training.epoch ):
             epoch_start_time = time.time()
             self.epoch = epoch + 1
             if self.multi_gpu and dist.get_rank() == 0:
@@ -1380,3 +1386,47 @@ class SequenceTrainer():
 
         else:
             raise Exception(f"Unsupport scheduler: '{self.config.scheduler.type.lower()}'")
+
+    def _strip_module_prefix(self, state_dict):
+        """
+        Removes the 'module.' prefix from state dict keys (added by DataParallel/DP).
+        This ensures compatibility when loading models saved in DDP/DP mode into non-wrapped models.
+
+        :param state_dict:
+        :return:
+        """
+        from collections import OrderedDict
+        new_dict = OrderedDict()
+        for k, v in state_dict.items():
+            if k.startswith('module.'):
+                new_dict[k[7:]] = v  # remove 'module.'
+            else:
+                new_dict[k] = v
+        return new_dict
+
+    def try_resume(self):
+        """
+        Attempts to resume training from a checkpoint based on config.
+        Loads model, optimizer, scheduler states, and returns the starting epoch and best validation score.
+        If no checkpoint is specified, training starts from scratch
+        """
+        # resume_path = '../RXNGraphormer/model_path/seq-v2-USPTO_STEREO-20250423_044122_ft/model/valid_checkpoint.pt'
+        resume_path = self.config.training.get("resume_path", None)
+        ckpt_path = None
+        if resume_path:
+            ckpt_path = resume_path
+        if ckpt_path:
+            logging.info(f"[INFO] Resume training from {ckpt_path}")
+            map_location = f"cuda:{self.local_rank}" if self.multi_gpu else self.device
+            ckpt = torch.load(ckpt_path, map_location=map_location)
+            raw_state = self._strip_module_prefix(ckpt['model_state_dict'])
+            self.model.module.load_state_dict(raw_state, strict=True)
+            # self.model.load_state_dict(ckpt['model_state_dict'])
+            self.optimizer.load_state_dict(ckpt['optimizer_state_dict'])
+            self.scheduler.load_state_dict(ckpt['scheduler_state_dict'])
+            start_epoch = ckpt['epoch'] + 1
+            best_valid = ckpt.get('best_val_acc', None) or ckpt.get('best_val_acc', float('inf'))
+            return start_epoch, best_valid
+        else:
+            logging.info("[INFO] Train from scratch")
+            return 1, float('inf')

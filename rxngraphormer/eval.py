@@ -129,7 +129,7 @@ def eval_regression_performance(pretrained_model_path,ckpt_file="valid_checkpoin
     model.load_state_dict(update_dict_key(ckpt_inf["model_state_dict"]))
     model.to(device)
     model.eval()
-    if not specific_val:
+    if not specific_val and  eval(pretrained_config.model.use_mid_inf):
         rct_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.rct_data_file,trunck=pretrained_config.data.data_trunck)
         pdt_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.pdt_data_file,trunck=pretrained_config.data.data_trunck)
         mid_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.mid_data_file,trunck=pretrained_config.data.data_trunck)
@@ -147,7 +147,27 @@ def eval_regression_performance(pretrained_model_path,ckpt_file="valid_checkpoin
             train_mid_dataset = mid_dataset[split_ids_map['train']]
             train_dataset = TripleDataset(train_rct_dataset,train_pdt_dataset,train_mid_dataset)
             train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=pretrained_config.data.batch_size, shuffle=False,collate_fn=triple_collate_fn)
-    else:
+    elif not specific_val and not eval(pretrained_config.model.use_mid_inf):
+        rct_dataset = RXNDataset(root=pretrained_config.data.data_path, name=pretrained_config.data.rct_data_file,
+                                 trunck=pretrained_config.data.data_trunck)
+        pdt_dataset = RXNDataset(root=pretrained_config.data.data_path, name=pretrained_config.data.pdt_data_file,
+                                 trunck=pretrained_config.data.data_trunck)
+
+        split_ids_map = get_idx_split(len(rct_dataset), int(pretrained_config.data.train_ratio * len(rct_dataset)),
+                                      int(pretrained_config.data.valid_ratio * len(rct_dataset)),
+                                      pretrained_config.data.seed)
+        test_rct_dataset = rct_dataset[split_ids_map['test']]
+        test_pdt_dataset = pdt_dataset[split_ids_map['test']]
+        test_dataset = PairDataset(test_rct_dataset, test_pdt_dataset)
+        test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=pretrained_config.data.batch_size,
+                                                      shuffle=False, collate_fn=pair_collate_fn)
+        if return_train_results:
+            train_rct_dataset = rct_dataset[split_ids_map['train']]
+            train_pdt_dataset = pdt_dataset[split_ids_map['train']]
+            train_dataset = PairDataset(train_rct_dataset, train_pdt_dataset)
+            train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=pretrained_config.data.batch_size,
+                                                           shuffle=False, collate_fn=pair_collate_fn)
+    elif specific_val and eval(pretrained_config.model.use_mid_inf):
         test_rct_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.test_rct_data_file,trunck=pretrained_config.data.data_trunck)
         test_pdt_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.test_pdt_data_file,trunck=pretrained_config.data.data_trunck)
         test_mid_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.test_mid_data_file,trunck=pretrained_config.data.data_trunck)
@@ -159,6 +179,25 @@ def eval_regression_performance(pretrained_model_path,ckpt_file="valid_checkpoin
             train_mid_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.train_mid_data_file,trunck=pretrained_config.data.data_trunck)
             train_dataset = TripleDataset(train_rct_dataset,train_pdt_dataset,train_mid_dataset)
             train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=pretrained_config.data.batch_size, shuffle=False,collate_fn=triple_collate_fn)
+    elif specific_val and not eval(pretrained_config.model.use_mid_inf):
+        test_rct_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.test_rct_data_file,trunck=pretrained_config.data.data_trunck)
+        test_pdt_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.test_pdt_data_file,trunck=pretrained_config.data.data_trunck)
+        test_dataset = PairDataset(test_rct_dataset, test_pdt_dataset)
+        test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=pretrained_config.data.batch_size, shuffle=False,
+                                                      collate_fn=pair_collate_fn)
+        if return_train_results:
+            train_rct_dataset = RXNDataset(root=pretrained_config.data.data_path,
+                                           name=pretrained_config.data.train_rct_data_file,
+                                           trunck=pretrained_config.data.data_trunck)
+            train_pdt_dataset = RXNDataset(root=pretrained_config.data.data_path,
+                                           name=pretrained_config.data.train_pdt_data_file,
+                                           trunck=pretrained_config.data.data_trunck)
+
+            train_dataset = PairDataset(train_rct_dataset, train_pdt_dataset)
+            train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=pretrained_config.data.batch_size,
+                                                           shuffle=False, collate_fn=pair_collate_fn)
+
+
     preds = torch.Tensor([]).to(device)
     targets = torch.Tensor([]).to(device)
     with torch.no_grad():
