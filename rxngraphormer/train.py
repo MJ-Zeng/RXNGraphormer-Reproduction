@@ -1389,11 +1389,14 @@ class SequenceTrainer():
 
     def _strip_module_prefix(self, state_dict):
         """
-        Removes the 'module.' prefix from state dict keys (added by DataParallel/DP).
-        This ensures compatibility when loading models saved in DDP/DP mode into non-wrapped models.
+        Removes 'module.' prefix from state_dict keys (added by DataParallel).
+        Ensures compatibility when loading into non-DataParallel models.
 
-        :param state_dict:
-        :return:
+        Args:
+            state_dict (dict): Model state dictionary with or without 'module.' prefix.
+
+        Returns:
+            OrderedDict: State dictionary with 'module.' prefix removed.
         """
         from collections import OrderedDict
         new_dict = OrderedDict()
@@ -1406,9 +1409,11 @@ class SequenceTrainer():
 
     def try_resume(self):
         """
-        Attempts to resume training from a checkpoint based on config.
-        Loads model, optimizer, scheduler states, and returns the starting epoch and best validation score.
-        If no checkpoint is specified, training starts from scratch
+        Resumes training from a checkpoint (if specified in config).
+        Restores model, optimizer, and scheduler states.
+
+        Returns:
+            tuple: (start_epoch, best_valid) - Starting epoch and best validation score.
         """
         # resume_path = '../RXNGraphormer/model_path/seq-v2-USPTO_STEREO-20250423_044122_ft/model/valid_checkpoint.pt'
         resume_path = self.config.training.get("resume_path", None)
