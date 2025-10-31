@@ -129,6 +129,8 @@ def eval_regression_performance(pretrained_model_path,ckpt_file="valid_checkpoin
     model.load_state_dict(update_dict_key(ckpt_inf["model_state_dict"]))
     model.to(device)
     model.eval()
+
+    # The combination of specific_val (custom test split) and use_mid_inf (intermediate representation usage) defines four distinct dataset configurations
     if not specific_val and  eval(pretrained_config.model.use_mid_inf):
         rct_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.rct_data_file,trunck=pretrained_config.data.data_trunck)
         pdt_dataset = RXNDataset(root=pretrained_config.data.data_path,name=pretrained_config.data.pdt_data_file,trunck=pretrained_config.data.data_trunck)
