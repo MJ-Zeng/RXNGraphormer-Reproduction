@@ -45,18 +45,22 @@ pip install hdbscan
 
 ---
 
+
 ## 📦 Datasets and Training Artifacts
 
-All datasets, model checkpoints, training logs, and evaluation results from this reproduction are archived and available on **Figshare**:
 
-🔗 **[https://figshare.com/s/your-dataset-doi-here](https://figshare.com/s/your-dataset-doi-here)**
+- **For all datasets (`USPTO_STEREO`, `USPTO_full`, `USPTO_480k`, `USPTO_50k`, `OOS`, `external_validation_dataset`, and `50k_with_rxn_type`)**:  
+  Download from the [original model's Figshare repository](https://figshare.com/s/decc64a868ab64a93099).  
+  These preprocessed datasets are part of the original RXNGraphormer release.
 
-This includes:
-- Preprocessed external validation datasets
-- Fine-tuned model checkpoints
-- Training logs and evaluation outputs
+- **For `Test.zip`**:  
+  Download from [our Figshare repository](https://doi.org/10.6084/m9.figshare.30498368.v2).  
+  This test set is newly introduced in our study.
 
-> 💡 This ensures full reproducibility of all experiments presented in the `reproduction/` notebooks and scripts.
+> **Note**:  
+> - All **model checkpoints, training logs, and evaluation results** are available in **our Figshare repository** and correspond to our independent reproduction runs.  
+> - Please follow the dataset directory structure outlined below after extraction.
+> - 💡 This ensures full reproducibility of all experiments presented in the `reproduction/` notebooks and scripts.
 
 ---
 
@@ -65,7 +69,7 @@ This includes:
 - ✅ Basic inference and embedding generation  
 - ✅ Reaction type classification and unsupervised clustering  
 - ✅ Regression tasks (yield, regioselectivity, enantioselectivity)  
-- ✅ Sequence generation (forward/retro-synthesis) on USPTO-50k/480k   
+- ✅ Sequence generation (forward/retro-synthesis) on USPTO dataset   
 - ✅ Structure-performance relationship (SPR) analysis  
 - ✅ External validation on real-world literature datasets
 

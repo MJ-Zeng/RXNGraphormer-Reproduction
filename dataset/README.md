@@ -5,7 +5,7 @@ Please download the following files:
     
   
 
-- **For `Test.zip`**: Download from  [our Figshare repository]() .
+- **For `Test.zip`**: Download from  [our Figshare repository](https://doi.org/10.6084/m9.figshare.30498368.v2) .
 
 After downloading, unzip each file and place the extracted dataset folders under the `dataset/` directory, following the structure below:
 
