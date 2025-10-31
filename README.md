@@ -1,8 +1,6 @@
 # RXNGraphormer Reproduction
 
-This repository provides a **reproduction** of [RXNGraphormer](https://github.com/licheng-xu-echo/RXNGraphormer), a unified pre-trained framework for reaction performance prediction and synthesis planning. The original work is by Xu et al.
-
-🔗 **Original Repository**: [https://github.com/licheng-xu-echo/RXNGraphormer](https://github.com/licheng-xu-echo/RXNGraphormer)
+This repository provides a **reproduction** of [🔗 RXNGraphormer](https://github.com/licheng-xu-echo/RXNGraphormer), a unified pre-trained framework for reaction performance prediction and synthesis planning. The original work is by Xu et al.
 
 This reproduction focuses on validating core functionalities, reaction-type analysis, and extending evaluation to external literature datasets.
 
