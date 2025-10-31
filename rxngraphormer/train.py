@@ -1412,10 +1412,13 @@ class SequenceTrainer():
         Resumes training from a checkpoint (if specified in config).
         Restores model, optimizer, and scheduler states.
 
+        resume_path = '../RXNGraphormer/model_path/seq-v2-USPTO_STEREO-20250423_044122_ft/model/valid_checkpoint.pt'
+        (requires config `resume_path`)
+
         Returns:
             tuple: (start_epoch, best_valid) - Starting epoch and best validation score.
         """
-        # resume_path = '../RXNGraphormer/model_path/seq-v2-USPTO_STEREO-20250423_044122_ft/model/valid_checkpoint.pt'
+        #
         resume_path = self.config.training.get("resume_path", None)
         ckpt_path = None
         if resume_path:
