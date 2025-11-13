@@ -332,7 +332,7 @@ This section evaluates synthesis planning performance via Top-n accuracy metrics
     <td align="center">69.3</td>
     <td align="center">73.7</td>
     <td align="center">78.0</td>
-    <td align="center">train</td>
+    <td align="center">fine-tuned</td>
   </tr>
   <tr>
     <td align="center">USPTO-full</td>
@@ -344,7 +344,7 @@ This section evaluates synthesis planning performance via Top-n accuracy metrics
     <td align="center">62.9</td>
     <td align="center">67.5</td>
     <td align="center">71.6</td>
-    <td align="center">eval</td>
+    <td align="center">inference-only</td>
   </tr>
   <tr>
     <td rowspan="2" align="center">Forward</td>
@@ -357,7 +357,7 @@ This section evaluates synthesis planning performance via Top-n accuracy metrics
     <td align="center">94.4</td>
     <td align="center">95.1</td>
     <td align="center">95.7</td>
-    <td align="center">train</td>
+    <td align="center">fine-tuned</td>
   </tr>
   <tr>
     <td align="center">USPTO-STEREO</td>
@@ -369,7 +369,7 @@ This section evaluates synthesis planning performance via Top-n accuracy metrics
     <td align="center">84.9</td>
     <td align="center">86.4</td>
     <td align="center">87.7</td>
-    <td align="center">train</td>
+    <td align="center">fine-tuned</td>
   </tr>
 </table>
 
