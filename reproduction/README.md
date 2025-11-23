@@ -76,7 +76,7 @@ Validates generalizability across:
    - Ru-catalyzed P(O)O-H insertion reactions  
 2. **Meta-C–H Functionalization** [Chem 2022]  
    - Sterically challenging C–H bond activation  
-3. **Amide Coupling (HTE)** [Zhang et al., ChemRxiv 2025]  
+3. **Amide Coupling (HTE)** [Zhang et al., Sci. China Chem, 16, 11809-11822]  
    - Machine-guided high-throughput experimentation  
 4. **Amide Coupling (Literature)**  
    - Recent 3-year literature compilation  

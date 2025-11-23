@@ -429,44 +429,44 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="24">Amide Coupling HTE</td>
     <td rowspan="3">Full HTE (with NATURE intermediate)</td>
     <td>Random split</td>
-    <td align="right">0.76</td>
-    <td align="right">9.00</td>
+    <td align="right">0.66</td>
+    <td align="right">10.00</td>
     <td align="right">0.58</td>
     <td align="right">14.14</td>
   </tr>
   <tr>
     <td>Partial Novelty</td>
-    <td align="right">0.71</td>
-    <td align="right">13.00</td>
+    <td align="right">0.68</td>
+    <td align="right">14.00</td>
     <td align="right">0.59</td>
     <td align="right">14.31</td>
   </tr>
   <tr>
     <td>Full Novelty</td>
-    <td align="right">0.65</td>
-    <td align="right">14.00</td>
+    <td align="right">0.63</td>
+    <td align="right">15.00</td>
     <td align="right">0.58</td>
     <td align="right">12.56</td>
   </tr>
   <tr>
     <td rowspan="3">Full HTE (without intermediate)</td>
     <td>Random split</td>
-    <td align="right">0.76</td>
-    <td align="right">9.00</td>
+    <td align="right">0.66</td>
+    <td align="right">10.00</td>
     <td align="right">0.58</td>
     <td align="right">14.31</td>
   </tr>
   <tr>
     <td>Partial Novelty</td>
-    <td align="right">0.71</td>
-    <td align="right">13.00</td>
+    <td align="right">0.68</td>
+    <td align="right">14.00</td>
     <td align="right">0.66</td>
     <td align="right">13.12</td>
   </tr>
   <tr>
     <td>Full Novelty</td>
-    <td align="right">0.65</td>
-    <td align="right">14.00</td>
+    <td align="right">0.63</td>
+    <td align="right">15.00</td>
     <td align="right">0.44</td>
     <td align="right">14.93</td>
   </tr>
@@ -474,7 +474,7 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="3">DCC (with intermediate)</td>
     <td>Random split</td>
     <td align="right">0.86</td>
-    <td align="right">9.00</td>
+    <td align="right">8.00</td>
     <td align="right">0.37</td>
     <td align="right">16.63</td>
   </tr>
@@ -496,7 +496,7 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="3">EDC (with intermediate)</td>
     <td>Random split</td>
     <td align="right">0.89</td>
-    <td align="right">8.00</td>
+    <td align="right">6.10</td>
     <td align="right">0.23</td>
     <td align="right">18.46</td>
   </tr>
@@ -518,7 +518,7 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="3">HATU (with intermediate)</td>
     <td>Random split</td>
     <td align="right">0.86</td>
-    <td align="right">9.00</td>
+    <td align="right">6.00</td>
     <td align="right">0.08</td>
     <td align="right">19.08</td>
   </tr>
@@ -540,7 +540,7 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="3">PyBOP (with intermediate)</td>
     <td>Random split</td>
     <td align="right">0.90</td>
-    <td align="right">8.00</td>
+    <td align="right">5.00</td>
     <td align="right">0.35</td>
     <td align="right">15.54</td>
   </tr>
@@ -562,7 +562,7 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="3">TBTU (without intermediate)</td>
     <td>Random split</td>
     <td align="right">0.71</td>
-    <td align="right">13.00</td>
+    <td align="right">10.00</td>
     <td align="right">0.49</td>
     <td align="right">13.40</td>
   </tr>
@@ -584,7 +584,7 @@ Model generalization is validated on newly introduced real-world datasets (e.g.,
     <td rowspan="3">HBTU (without intermediate)</td>
     <td>Random split</td>
     <td align="right">0.83</td>
-    <td align="right">11.00</td>
+    <td align="right">8.00</td>
     <td align="right">0.23</td>
     <td align="right">18.02</td>
   </tr>
